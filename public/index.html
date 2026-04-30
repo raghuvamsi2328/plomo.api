@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plomo API Docs</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --card: #fff9f2;
+      --text: #1d2a30;
+      --muted: #5b6770;
+      --brand: #0d8a73;
+      --brand-strong: #07695a;
+      --line: #dccdb8;
+      --warn: #8a3b12;
+      --ok: #115a31;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top right, #f7e7d1 0%, var(--bg) 45%, #efe3d4 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      margin-top: 24px;
+      font-size: 1.35rem;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    .endpoint {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.83rem;
+      color: #fff;
+      background: var(--brand);
+    }
+
+    code, pre {
+      font-family: "Courier New", monospace;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      margin: 8px 0 0;
+      background: #f2eadf;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      overflow: auto;
+      color: #24313a;
+    }
+
+    .tester {
+      margin-top: 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .row {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 760px) {
+      .row {
+        grid-template-columns: 160px 1fr;
+      }
+    }
+
+    label {
+      font-weight: 700;
+      color: #24313a;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      background: #fffdfa;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      background: linear-gradient(120deg, var(--brand), var(--brand-strong));
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    .hint {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .status-ok {
+      color: var(--ok);
+      font-weight: 700;
+    }
+
+    .status-bad {
+      color: var(--warn);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Plomo API Documentation</h1>
+    <p>Use this page to read API contracts and test requests directly from browser.</p>
+
+    <h2>Base URL</h2>
+    <p>Local: http://localhost:3000</p>
+
+    <h2>Endpoints</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="endpoint">POST /api/auth/signin</span>
+        <p>Create parent account.</p>
+        <pre>{
+  "username": "raghu_parent",
+  "childType": "boy",
+  "parentName": "Raghu",
+  "mobileNumber": "9876543210",
+  "dateOfBirth": "05/04/2018",
+  "password": "secret123"
+}</pre>
+      </article>
+
+      <article class="card">
+        <span class="endpoint">POST /api/auth/login</span>
+        <p>Parent login with username or mobile number.</p>
+        <pre>{
+  "identifier": "raghu_parent",
+  "password": "secret123"
+}</pre>
+      </article>
+
+      <article class="card">
+        <span class="endpoint">POST /api/auth/kid-login</span>
+        <p>Kids login without password.</p>
+        <pre>{
+  "kidName": "Aarav",
+  "dateOfBirth": "05/04/2018"
+}</pre>
+      </article>
+
+      <article class="card">
+        <span class="endpoint">POST /api/kids</span>
+        <p>Create kid profile. Requires parent Bearer token.</p>
+        <pre>{
+  "kidName": "Aarav",
+  "childType": "boy",
+  "dateOfBirth": "05/04/2018"
+}</pre>
+      </article>
+
+      <article class="card">
+        <span class="endpoint">POST /api/tasks</span>
+        <p>Create task. Requires parent Bearer token.</p>
+        <pre>{
+  "parentName": "Raghu",
+  "mobileNumber": "9876543210",
+  "kidName": "Aarav",
+  "taskType": "study",
+  "taskTitle": "Math homework",
+  "taskDescription": "Complete chapter 2 exercises",
+  "taskPoints": 10,
+  "taskStatus": "new"
+}</pre>
+      </article>
+
+      <article class="card">
+        <span class="endpoint">POST /api/tasks/list</span>
+        <p>Get tasks list for one kid. Requires parent Bearer token.</p>
+        <pre>{
+  "parentName": "Raghu",
+  "mobileNumber": "9876543210",
+  "kidName": "Aarav"
+}</pre>
+      </article>
+    </div>
+
+    <h2>API Tester</h2>
+    <div class="card tester">
+      <div class="row">
+        <label for="baseUrl">Base URL</label>
+        <input id="baseUrl" value="http://localhost:3000" />
+      </div>
+
+      <div class="row">
+        <label for="endpoint">Endpoint</label>
+        <input id="endpoint" value="/health" />
+      </div>
+
+      <div class="row">
+        <label for="method">Method</label>
+        <select id="method">
+          <option>GET</option>
+          <option selected>POST</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="token">Bearer Token</label>
+        <input id="token" placeholder="Paste parent token for protected APIs" />
+      </div>
+
+      <div class="row">
+        <label for="payload">JSON Body</label>
+        <textarea id="payload">{
+  "identifier": "raghu_parent",
+  "password": "secret123"
+}</textarea>
+      </div>
+
+      <button id="sendBtn" type="button">Send Request</button>
+      <p class="hint">For GET, body is ignored. For POST, JSON body is sent.</p>
+
+      <div id="statusText" class="hint"></div>
+      <pre id="responseBox">Response appears here</pre>
+    </div>
+  </div>
+
+  <script>
+    const baseUrlEl = document.getElementById("baseUrl");
+    const endpointEl = document.getElementById("endpoint");
+    const methodEl = document.getElementById("method");
+    const tokenEl = document.getElementById("token");
+    const payloadEl = document.getElementById("payload");
+    const sendBtnEl = document.getElementById("sendBtn");
+    const responseBoxEl = document.getElementById("responseBox");
+    const statusTextEl = document.getElementById("statusText");
+
+    async function sendRequest() {
+      const baseUrl = baseUrlEl.value.trim().replace(/\/$/, "");
+      const endpoint = endpointEl.value.trim();
+      const method = methodEl.value;
+      const token = tokenEl.value.trim();
+
+      const headers = {
+        "Content-Type": "application/json"
+      };
+
+      if (token) {
+        headers.Authorization = "Bearer " + token;
+      }
+
+      const requestOptions = {
+        method,
+        headers
+      };
+
+      if (method !== "GET") {
+        try {
+          const parsed = JSON.parse(payloadEl.value || "{}");
+          requestOptions.body = JSON.stringify(parsed);
+        } catch (error) {
+          statusTextEl.className = "status-bad";
+          statusTextEl.textContent = "Invalid JSON body";
+          responseBoxEl.textContent = String(error);
+          return;
+        }
+      }
+
+      try {
+        const res = await fetch(baseUrl + endpoint, requestOptions);
+        const text = await res.text();
+        let body;
+
+        try {
+          body = JSON.parse(text);
+        } catch {
+          body = text;
+        }
+
+        statusTextEl.className = res.ok ? "status-ok" : "status-bad";
+        statusTextEl.textContent = "Status: " + res.status + " " + res.statusText;
+        responseBoxEl.textContent = typeof body === "string" ? body : JSON.stringify(body, null, 2);
+      } catch (error) {
+        statusTextEl.className = "status-bad";
+        statusTextEl.textContent = "Request failed";
+        responseBoxEl.textContent = String(error);
+      }
+    }
+
+    sendBtnEl.addEventListener("click", sendRequest);
+  </script>
+</body>
+</html>
