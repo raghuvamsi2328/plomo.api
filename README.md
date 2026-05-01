@@ -111,6 +111,18 @@ curl http://localhost:3000/health
 http://localhost:3000/docs
 ```
 
+5. Download Postman collection:
+```bash
+http://localhost:3000/docs/plomo-api.postman_collection.json
+```
+
+## Postman Quick Use
+
+1. Import collection file from `public/plomo-api.postman_collection.json`.
+2. Run `Auth -> Parent Login (Get Token)`.
+3. Token is automatically saved in collection variable `parentToken`.
+4. Use protected requests under `Kids` and `Tasks` folders.
+
 ## Run locally (without Docker)
 
 1. Install dependencies:

@@ -3,293 +3,485 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plomo API Docs</title>
+  <title>Plomo API Portal</title>
   <style>
     :root {
-      --bg: #f4efe6;
-      --card: #fff9f2;
-      --text: #1d2a30;
-      --muted: #5b6770;
-      --brand: #0d8a73;
-      --brand-strong: #07695a;
-      --line: #dccdb8;
-      --warn: #8a3b12;
-      --ok: #115a31;
+      --bg: #f3f0e8;
+      --ink: #1f2c35;
+      --muted: #5f6a73;
+      --panel: #fffdf8;
+      --line: #d9cfbf;
+      --brand: #c5531d;
+      --brand-deep: #96370f;
+      --accent: #006a78;
+      --ok: #125732;
+      --bad: #9d2d17;
+      --shadow: 0 12px 30px rgba(48, 27, 8, 0.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top right, #f7e7d1 0%, var(--bg) 45%, #efe3d4 100%);
-      color: var(--text);
-      line-height: 1.5;
+      font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, #e9dfd1 0%, rgba(233, 223, 209, 0) 38%),
+        radial-gradient(circle at 100% 20%, #e5efe7 0%, rgba(229, 239, 231, 0) 35%),
+        var(--bg);
+      min-height: 100vh;
     }
 
-    .wrap {
-      max-width: 1100px;
+    .shell {
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 28px 18px 60px;
+      padding: 22px 16px 58px;
     }
 
-    h1, h2, h3 {
-      margin: 0 0 10px;
-      line-height: 1.2;
+    .hero {
+      background: linear-gradient(110deg, rgba(197, 83, 29, 0.1), rgba(0, 106, 120, 0.1));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 16px;
     }
 
-    h1 {
-      font-size: 2rem;
-      letter-spacing: 0.5px;
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      line-height: 1.15;
     }
 
-    h2 {
-      margin-top: 24px;
-      font-size: 1.35rem;
-    }
-
-    p {
-      margin: 0 0 12px;
+    .hero p {
+      margin: 8px 0 0;
       color: var(--muted);
     }
 
-    .grid {
+    .hero-kpis {
+      margin-top: 12px;
       display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     }
 
-    .card {
-      background: var(--card);
+    .kpi {
+      background: #fffefb;
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
-    }
-
-    .endpoint {
-      display: inline-block;
-      margin-bottom: 8px;
-      padding: 3px 8px;
-      border-radius: 99px;
-      font-weight: 700;
-      font-size: 0.83rem;
-      color: #fff;
-      background: var(--brand);
-    }
-
-    code, pre {
-      font-family: "Courier New", monospace;
+      border-radius: 12px;
+      padding: 10px;
       font-size: 0.9rem;
     }
 
-    pre {
-      margin: 8px 0 0;
-      background: #f2eadf;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px;
-      overflow: auto;
-      color: #24313a;
+    .kpi strong { color: var(--brand-deep); }
+
+    .download {
+      margin-top: 10px;
+      display: inline-block;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(0, 106, 120, 0.55);
     }
 
-    .tester {
-      margin-top: 20px;
-      display: grid;
-      gap: 12px;
-    }
+    .download:hover { color: #085866; }
 
-    .row {
+    .layout {
       display: grid;
-      gap: 10px;
+      gap: 16px;
       grid-template-columns: 1fr;
     }
 
-    @media (min-width: 760px) {
-      .row {
-        grid-template-columns: 160px 1fr;
+    @media (min-width: 980px) {
+      .layout {
+        grid-template-columns: minmax(300px, 0.95fr) minmax(390px, 1.05fr);
+      }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .panel p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .step {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #fffaf4;
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #fff;
+      background: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .method {
+      display: inline-block;
+      min-width: 46px;
+      text-align: center;
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: #fff;
+      background: var(--brand);
+      font-weight: 700;
+      font-size: 0.73rem;
+    }
+
+    .endpoint {
+      margin-left: 8px;
+      font-size: 0.85rem;
+      color: #30414c;
+      word-break: break-all;
+    }
+
+    .test-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .line {
+      display: grid;
+      gap: 7px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 650px) {
+      .line.two {
+        grid-template-columns: 140px 1fr;
+        align-items: center;
       }
     }
 
     label {
+      font-size: 0.86rem;
       font-weight: 700;
-      color: #24313a;
+      color: #30414c;
     }
 
-    input, select, textarea, button {
+    select, input, textarea, button {
       width: 100%;
-      border-radius: 10px;
       border: 1px solid var(--line);
-      padding: 10px 12px;
-      font-size: 0.95rem;
-      background: #fffdfa;
-      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 11px;
+      font-size: 0.92rem;
+      color: var(--ink);
+      background: #fffcf8;
     }
 
     textarea {
-      min-height: 160px;
+      min-height: 170px;
       resize: vertical;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+    }
+
+    .btn-row {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 650px) {
+      .btn-row {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
     }
 
     button {
       border: 0;
-      background: linear-gradient(120deg, var(--brand), var(--brand-strong));
+      cursor: pointer;
       color: #fff;
       font-weight: 700;
-      cursor: pointer;
+      background: linear-gradient(120deg, var(--brand), var(--brand-deep));
       transition: transform 0.12s ease, filter 0.12s ease;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
+    button:hover { transform: translateY(-1px); }
+
+    .ghost {
+      background: linear-gradient(120deg, #5a6b76, #3f4f59);
     }
 
-    .hint {
-      font-size: 0.9rem;
+    .info {
+      background: linear-gradient(120deg, #0d7f90, #0a6072);
+    }
+
+    .meta {
+      font-size: 0.84rem;
       color: var(--muted);
+      margin: 2px 0 0;
     }
 
-    .status-ok {
-      color: var(--ok);
-      font-weight: 700;
-    }
+    .status-ok { color: var(--ok); font-weight: 700; }
+    .status-bad { color: var(--bad); font-weight: 700; }
 
-    .status-bad {
-      color: var(--warn);
-      font-weight: 700;
+    pre {
+      margin: 8px 0 0;
+      background: #f5eee4;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      overflow: auto;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 0.84rem;
+      color: #23343d;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Plomo API Documentation</h1>
-    <p>Use this page to read API contracts and test requests directly from browser.</p>
-
-    <h2>Base URL</h2>
-    <p>Local: http://localhost:3000</p>
-
-    <h2>Endpoints</h2>
-    <div class="grid">
-      <article class="card">
-        <span class="endpoint">POST /api/auth/signin</span>
-        <p>Create parent account.</p>
-        <pre>{
-  "username": "raghu_parent",
-  "childType": "boy",
-  "parentName": "Raghu",
-  "mobileNumber": "9876543210",
-  "dateOfBirth": "05/04/2018",
-  "password": "secret123"
-}</pre>
-      </article>
-
-      <article class="card">
-        <span class="endpoint">POST /api/auth/login</span>
-        <p>Parent login with username or mobile number.</p>
-        <pre>{
-  "identifier": "raghu_parent",
-  "password": "secret123"
-}</pre>
-      </article>
-
-      <article class="card">
-        <span class="endpoint">POST /api/auth/kid-login</span>
-        <p>Kids login without password.</p>
-        <pre>{
-  "kidName": "Aarav",
-  "dateOfBirth": "05/04/2018"
-}</pre>
-      </article>
-
-      <article class="card">
-        <span class="endpoint">POST /api/kids</span>
-        <p>Create kid profile. Requires parent Bearer token.</p>
-        <pre>{
-  "kidName": "Aarav",
-  "childType": "boy",
-  "dateOfBirth": "05/04/2018"
-}</pre>
-      </article>
-
-      <article class="card">
-        <span class="endpoint">POST /api/tasks</span>
-        <p>Create task. Requires parent Bearer token.</p>
-        <pre>{
-  "parentName": "Raghu",
-  "mobileNumber": "9876543210",
-  "kidName": "Aarav",
-  "taskType": "study",
-  "taskTitle": "Math homework",
-  "taskDescription": "Complete chapter 2 exercises",
-  "taskPoints": 10,
-  "taskStatus": "new"
-}</pre>
-      </article>
-
-      <article class="card">
-        <span class="endpoint">POST /api/tasks/list</span>
-        <p>Get tasks list for one kid. Requires parent Bearer token.</p>
-        <pre>{
-  "parentName": "Raghu",
-  "mobileNumber": "9876543210",
-  "kidName": "Aarav"
-}</pre>
-      </article>
-    </div>
-
-    <h2>API Tester</h2>
-    <div class="card tester">
-      <div class="row">
-        <label for="baseUrl">Base URL</label>
-        <input id="baseUrl" value="http://localhost:3000" />
+  <main class="shell">
+    <section class="hero">
+      <h1>Plomo API Portal</h1>
+      <p>Read endpoint contracts, follow auth flow, and execute requests from this page.</p>
+      <div class="hero-kpis">
+        <div class="kpi"><strong>Base URL:</strong> <span id="kpiBaseUrl"></span></div>
+        <div class="kpi"><strong>Auth:</strong> JWT Bearer token for protected routes</div>
+        <div class="kpi"><strong>Date Format:</strong> dd/mm/yyyy</div>
       </div>
+      <a class="download" href="/docs/plomo-api.postman_collection.json" download>Download Postman Collection</a>
+    </section>
 
-      <div class="row">
-        <label for="endpoint">Endpoint</label>
-        <input id="endpoint" value="/health" />
-      </div>
+    <section class="layout">
+      <article class="panel">
+        <h2>Quick Flow</h2>
+        <p>Follow this exact order for a clean test run in browser or Postman.</p>
 
-      <div class="row">
-        <label for="method">Method</label>
-        <select id="method">
-          <option>GET</option>
-          <option selected>POST</option>
-        </select>
-      </div>
+        <div class="step">
+          <span class="pill">Step 1</span>
+          <h3><span class="method">POST</span><span class="endpoint">/api/auth/signin</span></h3>
+          <p>Create parent account.</p>
+        </div>
 
-      <div class="row">
-        <label for="token">Bearer Token</label>
-        <input id="token" placeholder="Paste parent token for protected APIs" />
-      </div>
+        <div class="step">
+          <span class="pill">Step 2</span>
+          <h3><span class="method">POST</span><span class="endpoint">/api/auth/login</span></h3>
+          <p>Copy <strong>data.token</strong> from response and use as Bearer token.</p>
+        </div>
 
-      <div class="row">
-        <label for="payload">JSON Body</label>
-        <textarea id="payload">{
-  "identifier": "raghu_parent",
-  "password": "secret123"
-}</textarea>
-      </div>
+        <div class="step">
+          <span class="pill">Step 3</span>
+          <h3><span class="method">POST</span><span class="endpoint">/api/kids</span></h3>
+          <p>Create kid profile using parent token.</p>
+        </div>
 
-      <button id="sendBtn" type="button">Send Request</button>
-      <p class="hint">For GET, body is ignored. For POST, JSON body is sent.</p>
+        <div class="step">
+          <span class="pill">Step 4</span>
+          <h3><span class="method">POST</span><span class="endpoint">/api/tasks</span></h3>
+          <p>Create tasks for the kid.</p>
+        </div>
 
-      <div id="statusText" class="hint"></div>
-      <pre id="responseBox">Response appears here</pre>
-    </div>
-  </div>
+        <div class="step">
+          <span class="pill">Step 5</span>
+          <h3><span class="method">POST</span><span class="endpoint">/api/tasks/list</span></h3>
+          <p>Fetch task list for the kid.</p>
+        </div>
+
+        <div class="step">
+          <span class="pill">Kids Login</span>
+          <h3><span class="method">POST</span><span class="endpoint">/api/auth/kid-login</span></h3>
+          <p>No password required, only kid name + DOB.</p>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>API Tester</h2>
+        <p>Select a preset to auto-fill method, endpoint, and body. Use Send Request to execute.</p>
+
+        <div class="test-grid">
+          <div class="line two">
+            <label for="preset">Preset</label>
+            <select id="preset"></select>
+          </div>
+
+          <div class="line two">
+            <label for="baseUrl">Base URL</label>
+            <input id="baseUrl" />
+          </div>
+
+          <div class="line two">
+            <label for="method">Method</label>
+            <select id="method">
+              <option>GET</option>
+              <option>POST</option>
+            </select>
+          </div>
+
+          <div class="line two">
+            <label for="endpoint">Endpoint</label>
+            <input id="endpoint" />
+          </div>
+
+          <div class="line two">
+            <label for="token">Bearer Token</label>
+            <input id="token" placeholder="Paste parent token for protected routes" />
+          </div>
+
+          <div class="line two">
+            <label for="payload">JSON Body</label>
+            <textarea id="payload"></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button id="sendBtn" type="button">Send Request</button>
+            <button id="copyCurlBtn" class="ghost" type="button">Copy cURL</button>
+            <button id="formatBtn" class="info" type="button">Format JSON</button>
+          </div>
+
+          <p class="meta">Protected endpoints: /api/kids, /api/tasks, /api/tasks/list</p>
+          <p id="statusText" class="meta"></p>
+          <pre id="responseBox">Response appears here</pre>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <script>
+    const presets = [
+      {
+        label: "Health Check",
+        method: "GET",
+        endpoint: "/health",
+        body: "{}"
+      },
+      {
+        label: "Parent Sign In",
+        method: "POST",
+        endpoint: "/api/auth/signin",
+        body: JSON.stringify({
+          username: "raghu_parent",
+          childType: "boy",
+          parentName: "Raghu",
+          mobileNumber: "9876543210",
+          dateOfBirth: "05/04/2018",
+          password: "secret123"
+        }, null, 2)
+      },
+      {
+        label: "Parent Login (Get Token)",
+        method: "POST",
+        endpoint: "/api/auth/login",
+        body: JSON.stringify({
+          identifier: "raghu_parent",
+          password: "secret123"
+        }, null, 2)
+      },
+      {
+        label: "Create Kid Profile",
+        method: "POST",
+        endpoint: "/api/kids",
+        body: JSON.stringify({
+          kidName: "Aarav",
+          childType: "boy",
+          dateOfBirth: "05/04/2018"
+        }, null, 2)
+      },
+      {
+        label: "Create Task",
+        method: "POST",
+        endpoint: "/api/tasks",
+        body: JSON.stringify({
+          parentName: "Raghu",
+          mobileNumber: "9876543210",
+          kidName: "Aarav",
+          taskType: "study",
+          taskTitle: "Math homework",
+          taskDescription: "Complete chapter 2 exercises",
+          taskPoints: 10,
+          taskStatus: "new"
+        }, null, 2)
+      },
+      {
+        label: "List Tasks",
+        method: "POST",
+        endpoint: "/api/tasks/list",
+        body: JSON.stringify({
+          parentName: "Raghu",
+          mobileNumber: "9876543210",
+          kidName: "Aarav"
+        }, null, 2)
+      },
+      {
+        label: "Kids Login",
+        method: "POST",
+        endpoint: "/api/auth/kid-login",
+        body: JSON.stringify({
+          kidName: "Aarav",
+          dateOfBirth: "05/04/2018"
+        }, null, 2)
+      }
+    ];
+
+    const presetEl = document.getElementById("preset");
     const baseUrlEl = document.getElementById("baseUrl");
-    const endpointEl = document.getElementById("endpoint");
     const methodEl = document.getElementById("method");
+    const endpointEl = document.getElementById("endpoint");
     const tokenEl = document.getElementById("token");
     const payloadEl = document.getElementById("payload");
     const sendBtnEl = document.getElementById("sendBtn");
-    const responseBoxEl = document.getElementById("responseBox");
+    const copyCurlBtnEl = document.getElementById("copyCurlBtn");
+    const formatBtnEl = document.getElementById("formatBtn");
     const statusTextEl = document.getElementById("statusText");
+    const responseBoxEl = document.getElementById("responseBox");
+    const kpiBaseUrlEl = document.getElementById("kpiBaseUrl");
+
+    function applyPreset(index) {
+      const selected = presets[index] || presets[0];
+      methodEl.value = selected.method;
+      endpointEl.value = selected.endpoint;
+      payloadEl.value = selected.body;
+    }
+
+    function ensureBaseUrl() {
+      const origin = window.location.origin;
+      baseUrlEl.value = origin;
+      kpiBaseUrlEl.textContent = origin;
+    }
+
+    function buildCurl() {
+      const baseUrl = baseUrlEl.value.trim().replace(/\/$/, "");
+      const endpoint = endpointEl.value.trim();
+      const method = methodEl.value;
+      const token = tokenEl.value.trim();
+      const lines = [`curl -X ${method} \"${baseUrl}${endpoint}\"`];
+      lines.push("  -H \"Content-Type: application/json\"");
+
+      if (token) {
+          lines.push(`  -H \"Authorization: Bearer ${token}\"`);
+      }
+
+      if (method !== "GET") {
+        lines.push(`  -d '${payloadEl.value}'`);
+      }
+
+        return lines.join(" \\\n+");
+    }
 
     async function sendRequest() {
       const baseUrl = baseUrlEl.value.trim().replace(/\/$/, "");
@@ -297,53 +489,86 @@
       const method = methodEl.value;
       const token = tokenEl.value.trim();
 
-      const headers = {
-        "Content-Type": "application/json"
-      };
-
+      const headers = { "Content-Type": "application/json" };
       if (token) {
         headers.Authorization = "Bearer " + token;
       }
 
-      const requestOptions = {
-        method,
-        headers
-      };
+      const options = { method, headers };
 
       if (method !== "GET") {
         try {
           const parsed = JSON.parse(payloadEl.value || "{}");
-          requestOptions.body = JSON.stringify(parsed);
+          options.body = JSON.stringify(parsed);
         } catch (error) {
           statusTextEl.className = "status-bad";
-          statusTextEl.textContent = "Invalid JSON body";
-          responseBoxEl.textContent = String(error);
+          statusTextEl.textContent = "Invalid JSON body: " + error.message;
           return;
         }
       }
 
       try {
-        const res = await fetch(baseUrl + endpoint, requestOptions);
+        const res = await fetch(baseUrl + endpoint, options);
         const text = await res.text();
-        let body;
+        let body = text;
 
         try {
           body = JSON.parse(text);
-        } catch {
+        } catch (_ignore) {
           body = text;
         }
 
         statusTextEl.className = res.ok ? "status-ok" : "status-bad";
         statusTextEl.textContent = "Status: " + res.status + " " + res.statusText;
-        responseBoxEl.textContent = typeof body === "string" ? body : JSON.stringify(body, null, 2);
+        responseBoxEl.textContent =
+          typeof body === "string" ? body : JSON.stringify(body, null, 2);
       } catch (error) {
         statusTextEl.className = "status-bad";
-        statusTextEl.textContent = "Request failed";
-        responseBoxEl.textContent = String(error);
+        statusTextEl.textContent = "Request failed: " + error.message;
       }
     }
 
+    function formatJsonBody() {
+      try {
+        const parsed = JSON.parse(payloadEl.value || "{}");
+        payloadEl.value = JSON.stringify(parsed, null, 2);
+      } catch (error) {
+        statusTextEl.className = "status-bad";
+        statusTextEl.textContent = "Cannot format invalid JSON: " + error.message;
+      }
+    }
+
+    async function copyCurl() {
+      const command = buildCurl();
+
+      try {
+        await navigator.clipboard.writeText(command);
+        statusTextEl.className = "status-ok";
+        statusTextEl.textContent = "cURL copied to clipboard";
+      } catch (_error) {
+        statusTextEl.className = "status-bad";
+        statusTextEl.textContent = "Clipboard blocked by browser";
+        responseBoxEl.textContent = command;
+      }
+    }
+
+    presets.forEach((preset, index) => {
+      const option = document.createElement("option");
+      option.value = String(index);
+      option.textContent = preset.label;
+      presetEl.appendChild(option);
+    });
+
+    ensureBaseUrl();
+    applyPreset(0);
+
+    presetEl.addEventListener("change", () => {
+      applyPreset(Number(presetEl.value));
+    });
+
     sendBtnEl.addEventListener("click", sendRequest);
+    formatBtnEl.addEventListener("click", formatJsonBody);
+    copyCurlBtnEl.addEventListener("click", copyCurl);
   </script>
 </body>
 </html>
